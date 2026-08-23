@@ -26,18 +26,26 @@
 
 #Ejercicio 6
 #numero =int(input("Dime un numero "))
-#for  i in range(1, 11):
-#    print(f" {numero} x {i} = {numero * i}" )
+#print(f"""
+#    {numero} x 0 = {numero * 0}
+#    {numero} x 1 = {numero * 1}
+#    {numero} x 2 = {numero * 2}
+#    {numero} x 3 = {numero * 3}
+#    {numero} x 4 = {numero * 4}
+#    {numero} x 5 = {numero * 5}
+#    {numero} x 6 = {numero * 6}
+#    {numero} x 7 = {numero * 7}
+#    {numero} x 8 = {numero * 8}
+#    {numero} x 9 = {numero * 9}
+#    {numero} x 10 = {numero * 10}
+#      """)
 
 #Ejercicio 7
-#while True:
-#    numero1=int(input("Ingrese el primer numero: "))
-#    numero2=int(input("Ingrese el segundo numero: "))
-#    if numero1 == 0 or numero2 == 0:
-#        print("ingrese de vuelta los numeros")
-#    else:
-#        print(f"suma: {numero1 + numero2} division: {numero1/ numero2} multiplicacion: {numero1 * numero2} resta: {numero1 - numero2}")
-#        break
+
+#numero1=int(input("Ingrese el primer numero distinto de 0: "))
+#numero2=int(input("Ingrese el segundo numero distinto de 0: "))
+
+#print(f"suma: {numero1 + numero2} division: {numero1/ numero2} multiplicacion: {numero1 * numero2} resta: {numero1 - numero2}")
 
 #Ejercicio 8
 #altura = float(input("Ingrese su altura: "))
