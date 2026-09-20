@@ -1,4 +1,3 @@
-import os # importamos libreria de sistema operativo
 
 alumnos= { #creamos un diccionario de alumnos con su legajo
     60902: "Rodolfo Fernandez",
@@ -22,6 +21,18 @@ notasFinales = [ #creamos una lista de notas finales con los nombres de los estu
     ["Juan Cruz Fernandez",0]
 ]
 
+def ingresar_nota(mensaje):
+    """Solicita una nota al usuario y valida que sea un número entre 0 y 10."""
+    while True:
+        try:
+            nota = float(input(mensaje))
+            if 0 <= nota <= 10:
+                return nota
+            else:
+                print(" Error: La nota debe estar entre 0 y 10.")
+        except ValueError:
+            print(" Error: Entrada inválida. Por favor, ingresa un número.")
+
 def pedirNotas(): #creamos una funcion para pedir las notas de cada alumno
     """
     Itera sobre las materias de cada alumno, pidiendo nota 1 y 2 de cada materia.
@@ -32,18 +43,12 @@ def pedirNotas(): #creamos una funcion para pedir las notas de cada alumno
         print(f"\t Alumno: {alumnos[alumno]}")
         for materia in materias: #Iteramos sobre las materias
             print(f"\t Materia: {materia[0]}")
-            while True:
                 # Pedimos las dos notas
-                nota1 = int(input("Ingrese la Nota 1: "))
-                nota2 = int(input("Ingrese la Nota 2: "))
-                if 0 <= nota1 <= 10 and 0 <= nota2 <= 10: #Chequeamos que esten entre 0 y 10
-                    break
-                else:
-                    print("Error: Las notas deben estar entre 0 y 10. Intente de nuevo.")
+            nota1 = ingresar_nota("Ingrese la Nota 1: ")
+            nota2 = ingresar_nota("Ingrese la Nota 2: ")
             materia[1] = nota1 # La nota 1 de la materia
             materia[2] = nota2 # La nota 2 de la materia
             materia[3] = (nota1 + nota2) / 2 # La nota final de la materia
-            limpiarPantalla() # Limpiamos la pantalla
         print("\n\n------------------------------")
         print(f"- Alumno: {alumnos[alumno]}")
         mostrarMaterias()
@@ -81,12 +86,6 @@ def notaFinal():
         notaFinal += materia[3]
     return notaFinal / len(materias)
 
-def limpiarPantalla():
-
-    """
-    Limpia la pantalla
-    """
-    os.system('cls')#ejecuta un comando en la terminal, que en este caso utiliza cls(limpiar la pantalla)
 
 def alumnoPromedioMasAlto():
     notaMasAlta = 0
