@@ -1,0 +1,5 @@
+Juan;Pérez;53365;8
+María;López;55654;10
+Pablo;Gómez;58999;6
+Cristian;David;34522;10
+joaco;Lichtenberg;59203;1
