@@ -205,3 +205,124 @@ class Estudiante(Persona):
 estudiante1 = Estudiante("Sofía", 19, "Ingeniería en Sistemas")
 print(estudiante1.saludar())   # Método heredado de Persona
 print(estudiante1.estudiar())  # Método propio de Estudiante
+
+# ==============================================================================
+# 4. MANEJO DE ARCHIVOS (FILE HANDLING)
+# ==============================================================================
+# La regla de oro al manipular archivos es usar el bloque 'with open(...)'.
+# El bloque 'with' abre el archivo y lo CIERRA AUTOMÁTICAMENTE al terminar,
+# evitando fuga de memoria o corrupción de datos.
+
+import os
+import json
+import csv
+
+print("\n--- 4. MANEJO DE ARCHIVOS ---")
+
+# ------------------------------------------------------------------------------
+# MODOS DE APERTURA PRINCIPALES ('mode'):
+# 'r'  -> Read (Lectura - Por defecto. Lanza FileNotFoundError si no existe)
+# 'w'  -> Write (Escritura - SOBREESCRIBE todo el contenido o crea el archivo)
+# 'a'  -> Append (Anexar - Agrega contenido al final sin borrar lo existente)
+# 'x'  -> Create (Creación exclusiva - Lanza error si el archivo ya existe)
+# 'r+' -> Lectura y Escritura simulada
+# ------------------------------------------------------------------------------
+
+# A) ESCRITURA Y SOBREESCRITURA ('w')
+print("\n--- A) Creación y Escritura ('w') ---")
+nombre_archivo = "ejemplo_repaso.txt"
+
+with open(nombre_archivo, mode="w", encoding="utf-8") as archivo:
+    archivo.write("Línea 1: Repaso general de Python.\n")
+    archivo.write("Línea 2: Aprendiendo manejo de archivos.\n")
+    # write() no agrega salto de línea automáticamente, hay que incluir '\n'.
+
+print(f"Archivo '{nombre_archivo}' creado e inicializado correctamente.")
+
+
+# B) ANEXAR CONTENIDO AL FINAL ('a')
+print("\n--- B) Anexar Contenido ('a') ---")
+
+with open(nombre_archivo, mode="a", encoding="utf-8") as archivo:
+    archivo.write("Línea 3: Esta línea fue agregada con el modo 'a'.\n")
+
+print("Contenido anexado al final del archivo.")
+
+
+# C) LECTURA DE ARCHIVOS ('r')
+print("\n--- C) Métodos de Lectura ('r') ---")
+
+# Método 1: Leer TODO el contenido como una sola cadena (.read())
+with open(nombre_archivo, mode="r", encoding="utf-8") as archivo:
+    contenido_completo = archivo.read()
+    print("Contenido completo con .read():")
+    print(contenido_completo)
+
+# Método 2: Leer línea por línea con un bucle 'for' (Eficiente en memoria)
+print("Lectura mediante iteración línea por línea:")
+with open(nombre_archivo, mode="r", encoding="utf-8") as archivo:
+    for num, linea in enumerate(archivo, start=1):
+        print(f"  Línea {num}: {linea.strip()}")  # .strip() quita el '\n' sobrante
+
+# Método 3: Obtener todas las líneas como una LISTA (.readlines())
+with open(nombre_archivo, mode="r", encoding="utf-8") as archivo:
+    lista_lineas = archivo.readlines()
+    print("\nLíneas como lista (.readlines()):", lista_lineas)
+
+
+# D) MANEJO DE FORMATOS ESTRUCTURADOS (JSON y CSV)
+print("\n--- D) Archivos JSON y CSV (Frecuentes en evaluaciones) ---")
+
+# 1. JSON (Mapea directo con Diccionarios y Listas)
+datos_estudiante = {
+    "nombre": "Carlos",
+    "materias": ["Programación", "Matemática"],
+    "aprobado": True
+}
+
+# Guardar en archivo JSON (json.dump)
+archivo_json = "estudiante.json"
+with open(archivo_json, mode="w", encoding="utf-8") as file_json:
+    json.dump(datos_estudiante, file_json, indent=4)
+print(f"Archivo JSON '{archivo_json}' guardado.")
+
+# Leer archivo JSON (json.load)
+with open(archivo_json, mode="r", encoding="utf-8") as file_json:
+    datos_cargados = json.load(file_json)
+    print("Datos leídos desde el JSON:", datos_cargados)
+
+
+# 2. CSV (Valores separados por comas)
+archivo_csv = "estudiantes.csv"
+filas_csv = [
+    ["Nombre", "Edad", "Materia"],
+    ["Ana", 20, "Python"],
+    ["Lucas", 22, "Algoritmos"]
+]
+
+# Escribir en archivo CSV (csv.writer)
+with open(archivo_csv, mode="w", newline="", encoding="utf-8") as file_csv:
+    escritor = csv.writer(file_csv)
+    escritor.writerows(filas_csv)  # Escribe todas las filas juntas
+
+# Leer archivo CSV (csv.reader)
+print("\nContenido leído del archivo CSV:")
+with open(archivo_csv, mode="r", encoding="utf-8") as file_csv:
+    lector = csv.reader(file_csv)
+    for fila in lector:
+        print("  Fila:", fila)
+
+
+# E) VERIFICAR Y ELIMINAR ARCHIVOS (Librería 'os')
+print("\n--- E) Verificación y Eliminación con modulo 'os' ---")
+
+# Comprobar si un archivo existe antes de intentar abrirlo o eliminarlo
+if os.path.exists(nombre_archivo):
+    os.remove(nombre_archivo)  # Elimina el archivo
+    print(f"El archivo '{nombre_archivo}' fue eliminado del sistema.")
+
+# Limpieza opcional de los temporales creados en el ejemplo
+if os.path.exists(archivo_json):
+    os.remove(archivo_json)
+if os.path.exists(archivo_csv):
+    os.remove(archivo_csv)
